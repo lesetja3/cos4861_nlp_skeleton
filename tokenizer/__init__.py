@@ -1,5 +1,6 @@
 import re
-from util import Span
+import nltk
+
 
 
 def _white_space_spans(text):
@@ -53,14 +54,6 @@ class ATokenizer:
     def __init__(self):
         pass
 
-    def tokenize(self, text):
-        """
-        The tokenize method takes a string and returns a list of Token objects.
-        :param text: The string to tokenize
-        :return: A list of Token objects
-        """
-        raise NotImplemented('Tokenizer not implemented.')
-
 
 class WhiteSpaceTokenizer(ATokenizer):
     """
@@ -70,13 +63,7 @@ class WhiteSpaceTokenizer(ATokenizer):
     def __init__(self):
         super().__init__()
 
-    def tokenize(self, text):
-        """
-        Tokenize the string using white space.
-        :param text: The string of text to tokenize
-        :return: The list of tokens separated by white space.
-        """
-        return [Token(text, Span(s, e)) for s, e in _white_space_spans(text)]
+
 
 
 class Tokenizer(ATokenizer):
@@ -91,6 +78,12 @@ class Tokenizer(ATokenizer):
         return
 
     def tokenize(self, text):
-        raise NotImplementedError('Default tokenizer method not implemented')
+        
+        nltk_tokens = nltk.word_tokenize(word_data)
+        print (nltk_tokens)
+ 
+       
+word_data = input("please enter the sentence to be tokenized ")
+Tokenizer().tokenize(word_data)  
 
 
