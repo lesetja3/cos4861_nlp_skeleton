@@ -41,11 +41,38 @@ class DistanceCalculator:
         self._deletion_cost = deletion_cost
         self._subst_cost = subst_cost
 
-    def distance(self, source, target):
-        """
-        Calculates the distance between two strings.
-        :param source: The source string
-        :param target: The target string
-        :return: The scalar distance between the source and target.
-        """
-        raise NotImplementedError('Distance calculation not implemented yet')
+
+def distance(string_first, string_second, first, second): 
+    l1 = first
+    l2 = second
+    # if the first string is empty the insert all 
+    #characters of the second to first 
+    if l1 == 0: 
+         return l2 
+  
+    # remove all characters of the first string if the 
+    # second string is empty
+    if l2 == 0: 
+        return l1 
+  
+    #Ignore the first characters if they are the same and count for
+    #the remain strings.
+    if string_first[l1-1]== string_second[l2-1]: 
+        return distance(string_first, string_second, l1-1, l2-1) 
+  
+    # if the last characters differs then we apply all three operations
+    # insert, remove and replace and consider the one with the minimun edit 
+    # cost.
+    return 1 + min(distance(string_first, string_second, l1, l2-1),    # Insert 
+                   distance(string_first, string_second, l1-1, l2),    # Remove 
+                   distance(string_first, string_second, l1-1, l2-1)    # Replace 
+                   ) 
+  
+# main program to test the function above 
+
+string1 = input("Enter the first string")
+string2 = input("Enter the second String")
+
+print( distance(string1, string2, len(string1), len(string2)))
+          
+            
